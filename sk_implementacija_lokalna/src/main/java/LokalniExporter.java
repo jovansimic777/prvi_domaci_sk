@@ -426,8 +426,6 @@ public class LokalniExporter extends MyExporter{
         }else{
             System.out.println("Neuspesno");
         }
-
-
     }
 
     @Override
@@ -436,6 +434,31 @@ public class LokalniExporter extends MyExporter{
         File folder = new File(path);
         File[] files = folder.listFiles();
 
+        for(File file:files){
+            if(file.isFile()){
+                System.out.println("File -> " + file.getName());
+            }else{
+                if(file.isDirectory()){
+                    System.out.println("Folder-> "+ file.getName());
+                    File[] files1 = file.listFiles();
+                    for(File file1: files1){
+                        if(file1.isFile()){
+                            System.out.println("File -> " + file1.getName());
+                        }else{
+                            if(file1.isDirectory()){
+                                System.out.println("Folder-> "+ file1.getName());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void read2(String path) throws IOException {
+        File folder = new File(path);
+        File[] files = folder.listFiles();
 
         for(File file:files){
 
@@ -446,11 +469,102 @@ public class LokalniExporter extends MyExporter{
                     System.out.println("Folder-> "+ file.getName());
                 }
             }
+        }
+    }
 
+    @Override
+    public void rename(String path, String ime) throws IOException {
+
+        File folder = new File(path);
+        String[] ulaz = path.split("\\\\");
+        String novi = "";
+        for(int i = 0; i < ulaz.length-1;i++){
+            novi += ulaz[i];
+            novi += "\\";
         }
 
-
+        novi += ime;
+        System.out.println(novi);
+        File noviFajl = new File(novi);
+        folder.renameTo(noviFajl);
     }
+
+    @Override
+    public void containStr(String path, String string) throws IOException {
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+
+        for(File file:files){
+            if(file.isFile() && file.getName().contains(string)){
+                System.out.println("File -> " + file.getName());
+            }else{
+                if(file.isDirectory()){
+                    File[] files1 = file.listFiles();
+                    for(File file1: files1){
+                        if(file1.isFile() && file1.getName().contains(string)){
+                            System.out.println("File -> " + file1.getName());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void containFile(String path, String ime) throws IOException {
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+
+        for(File file:files){
+            if(file.isDirectory()) {
+                File[] files1 = file.listFiles();
+                for (File file1 : files1) {
+                    if (file1.isFile() && file1.getName().contains(ime)) {
+                            System.out.println("Folder -> " + file.getName());
+                    }else{
+                        if(file1.isDirectory()){
+                            File[] files2 = file1.listFiles();
+                            for(File file2 : files2){
+                                if(file2.isFile() && file2.getName().contains(ime)){
+                                    System.out.println("Folder -> " + file1.getName());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void doesFolderContainFile(String path, List<String> imena) {
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+
+        for(File file:files){
+            if(file.isFile()){
+                for(String ime : imena){
+                    if(file.getName().equals(ime)){
+                        System.out.println("File -> " + file.getName() + " se sadrzi;");
+                    }
+                }
+            }else{
+                if(file.isDirectory()){
+                    File[] files1 = file.listFiles();
+                    for(File file1: files1){
+                        if(file1.isFile()){
+                            for(String ime1: imena){
+                                if(file1.getName().equals(ime1)){
+                                    System.out.println("File -> " + file1.getName() + " se sadrzi");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public void moveFile(String sourceFilePath , String destinationFilePath) {
 

@@ -25,6 +25,16 @@ public abstract class MyExporter {
 
     public abstract void read(String path) throws IOException;
 
+    public abstract void read2(String path) throws IOException;
+
+    public abstract void rename(String path,String ime) throws IOException;
+
+    public abstract void containStr(String path, String string) throws IOException;
+
+    public abstract void containFile(String path, String ime) throws IOException;
+
+    public abstract void doesFolderContainFile(String path, List<String> imena);
+
     public abstract void moveFile(String sourceFilePath, String destinationFilePath) throws IOException;
 
     public abstract void lastModified(String path) throws IOException;

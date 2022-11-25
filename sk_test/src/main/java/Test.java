@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Test {
@@ -73,29 +75,34 @@ public class Test {
                     System.out.println("(10) Set storage size");
                     System.out.println("(11) Set restricted extensions");
                     System.out.println("(12) Set folder restriction");
+                    System.out.println("(13) Rename");
+                    System.out.println("(14) ReadAll");
+                    System.out.println("(15) File contains String");
+                    System.out.println("(16) Which folder contains file");
+                    System.out.println("(17) Does folder contain file");
 
                     System.out.println("Izaberite opciju:");
                     Scanner scanner100 = new Scanner(System.in);
                     int br = scanner100.nextInt();
 
-                switch(br){
+                switch(br) {
 
-                    case 1: case 21:
+                    case 1:
 
                         Scanner scanner11 = new Scanner(System.in);
                         System.out.println("Unesite putanju koji fajl zelite da sacuvate:");
                         String source11 = scanner11.nextLine();
                         System.out.println("Unesite putanju gde u skladistu zelite da sacuvate fajl:");
                         String destination11 = scanner11.nextLine();
-                        myExporter.save(source11,destination11);
+                        myExporter.save(source11, destination11);
                         break;
-                    case 2: case 22:
+                    case 2:
                         Scanner scanner2 = new Scanner(System.in);
                         System.out.println("Unesite putanju gde zelite da kreirate folder:");
                         String path2 = scanner2.nextLine();
                         myExporter.createFolder(path2);
                         break;
-                    case 3: case 23:
+                    case 3:
                         Scanner scanner3 = new Scanner(System.in);
                         System.out.println("Unesite putanju gde zelite da kreirate fajl:");
                         String path3 = scanner3.nextLine();
@@ -113,7 +120,7 @@ public class Test {
                         String path5 = scanner5.nextLine();
                         myExporter.deleteFile(path5);
                         break;
-                    case 6: case 31: case 26:
+                    case 6:
                         Scanner scanner6 = new Scanner(System.in);
                         System.out.println("Unesite koji folder zelite da izlistate:");
                         String path6 = scanner6.nextLine();
@@ -125,27 +132,26 @@ public class Test {
                         String source2 = scanner7.nextLine();
                         System.out.println("Unesite gde zelite da premestite fajl:");
                         String destination2 = scanner7.nextLine();
-                        myExporter.moveFile(source2,destination2);
+                        myExporter.moveFile(source2, destination2);
                         break;
                     case 8:
                         Scanner scanner8 = new Scanner(System.in);
                         System.out.println("Unesite koji fajl zelite da skinete:");
                         String source = scanner8.nextLine();
 
-                        if(myExporter.downloadFile(source)){
+                        if (myExporter.downloadFile(source)) {
                             System.out.println("Uspesno skinut!");
-                        }
-                        else {
+                        } else {
                             System.out.println("Neuspesno!");
                         }
                         break;
-                    case 11: case 25: case 33:
+                    case 9:
                         System.out.println("Unesite koji folder zelite da fidite kad je poslednji put modifikovan: ");
                         Scanner scanner21 = new Scanner(System.in);
                         String path21 = scanner21.nextLine();
                         myExporter.lastModified(path21);
                         break;
-                    case 12:
+                    case 10:
 
                         System.out.println("Unesite velicinu storage-a:");
                         Scanner scanner40 = new Scanner(System.in);
@@ -153,7 +159,7 @@ public class Test {
                         myExporter.setStorageSize(vel);
 
                         break;
-                    case 13:
+                    case 11:
 
                         System.out.println("Unesite zabranjene extenzije:");
                         Scanner scanner50 = new Scanner(System.in);
@@ -161,17 +167,60 @@ public class Test {
                         myExporter.setRestrictedxtensions(res);
 
                         break;
-                    case 14:
+                    case 12:
 
                         System.out.println("Unesite putanju foldera:");
                         Scanner scanner60 = new Scanner(System.in);
                         String fol = scanner60.nextLine();
                         System.out.println("Unesite broj foldera:");
                         Integer b = Integer.parseInt(scanner60.nextLine());
-                        myExporter.setFolderRestriction(fol,b);
+                        myExporter.setFolderRestriction(fol, b);
 
                         break;
+                    case 13:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scanner25132 = new Scanner(System.in);
+                        String put = scanner25132.nextLine();
+                        System.out.println("Unesite novo ime");
+                        String ime = scanner25132.nextLine();
+                        myExporter.rename(put, ime);
 
+                        break;
+                    case 14:
+                        Scanner scanner643 = new Scanner(System.in);
+                        System.out.println("Unesite koji folder zelite da izlistate:");
+                        String path67 = scanner643.nextLine();
+                        myExporter.read2(path67);
+                        break;
+                    case 15:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scanner257132 = new Scanner(System.in);
+                        String put1 = scanner257132.nextLine();
+                        System.out.println("Unesite string");
+                        String ime1 = scanner257132.nextLine();
+                        myExporter.containStr(put1, ime1);
+                        break;
+                    case 16:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scannerr = new Scanner(System.in);
+                        String put12 = scannerr.nextLine();
+                        System.out.println("Unesite ime fajla");
+                        String ime12 = scannerr.nextLine();
+                        myExporter.containFile(put12, ime12);
+                        break;
+                    case 17:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scanneri = new Scanner(System.in);
+                        String put123 = scanneri.nextLine();
+                        System.out.println("Unesite ime");
+                        String imena = scanneri.nextLine();
+                        String[] imena2 = imena.split(",");
+                        List<String> finalnaImena = new ArrayList<String>();
+                        for (int i = 0; i < imena2.length; i++){
+                            finalnaImena.add(imena2[i]);
+                        }
+                        myExporter.doesFolderContainFile(put123,finalnaImena);
+                        break;
                     default:
                         System.out.println("Lose ste uneli!");
                         break;

@@ -378,6 +378,31 @@ public class DriveImplementacija extends MyExporter{
         }
     }
 
+    @Override
+    public void read2(String path) throws IOException {
+
+    }
+
+    @Override
+    public void rename(String path,String ime) throws IOException {
+
+    }
+
+    @Override
+    public void containStr(String path,String string) throws IOException {
+
+    }
+
+    @Override
+    public void containFile(String path, String ime) throws IOException {
+
+    }
+
+    @Override
+    public void doesFolderContainFile(String path, List<String> imena) {
+
+    }
+
 
     @Override
     public void moveFile(String fajl, String folder) throws IOException {
