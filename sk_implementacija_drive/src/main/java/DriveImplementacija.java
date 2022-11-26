@@ -17,7 +17,6 @@ public class DriveImplementacija extends MyExporter{
     }
 
     private Drive service;
-    private JSONArray useri = new JSONArray();
 
     private DriveImplementacija() {
         try {
@@ -25,15 +24,6 @@ public class DriveImplementacija extends MyExporter{
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-    }
-
-    public List<File> proveriDecu(String folderId) throws IOException {
-        List<File> deca;
-        String s = "'" + folderId  + "' in parents and visibility = 'limited' and threshed = false";
-        Drive.Files.List request = service.files().list().setQ(s);
-        System.out.println("usao1");
-        return (ArrayList<File>) request.execute().getFiles();
-
     }
 
     public String checkPath(List<String> putanja) throws IOException {
@@ -155,12 +145,6 @@ public class DriveImplementacija extends MyExporter{
                         .execute();
                 roditeljId = fajl.getId();
             }
-            File fileMet = new File();
-            fileMet.setName("user.json");
-            fileMet.setParents(Collections.singletonList(roditeljId));
-            File fil = service.files().create(fileMet)
-                    .setFields("id, parents")
-                    .execute();
 
             File fileMe = new File();
             fileMe.setName("konfig.json");

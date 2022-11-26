@@ -23,7 +23,6 @@ public class LokalniExporter extends MyExporter{
         ExporterManager.registerExporter(new LokalniExporter());
     }
 
-    public JSONArray useri = new JSONArray();
     public String nazivSkladista = new String();
     public Long velicinaSkladista = new Long(0);
     public Long unetaVelicina;
