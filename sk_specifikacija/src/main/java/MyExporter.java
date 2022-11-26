@@ -1,7 +1,12 @@
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
+
+/**
+ *proba
+ * @author Jovan Simic
+ * Petar Tisic
+ */
+
 
 public abstract class MyExporter {
 
@@ -33,7 +38,9 @@ public abstract class MyExporter {
 
     public abstract void containFile(String path, String ime) throws IOException;
 
-    public abstract void doesFolderContainFile(String path, List<String> imena);
+    public abstract void doesFolderContainFile(String path, List<String> imena) throws IOException;
+
+    public abstract void sort(String path, String vrsta, String redosled) throws IOException;
 
     public abstract void moveFile(String sourceFilePath, String destinationFilePath) throws IOException;
 
@@ -50,6 +57,8 @@ public abstract class MyExporter {
     public abstract void setRestrictedxtensions(String restrictions);
 
     public abstract void setFolderRestriction(String folderName, Integer broj);
+
+    public abstract void returnFilesWithExtension(String path, String extension);
 
     public void setFileName(String fileName) {
         this.fileName = fileName;

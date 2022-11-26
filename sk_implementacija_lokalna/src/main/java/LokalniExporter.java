@@ -54,9 +54,6 @@ public class LokalniExporter extends MyExporter{
             }else {
                 return "false";
             }
-
-
-
         }else{
 
             File[] files = dir.listFiles();
@@ -82,7 +79,6 @@ public class LokalniExporter extends MyExporter{
                 JSONParser jsonP = new JSONParser();
 
 
-
                 try(FileReader reader = new FileReader(file)) {
                     Object obj = jsonP.parse(reader);
                     object = (JSONObject) obj;
@@ -99,20 +95,13 @@ public class LokalniExporter extends MyExporter{
                     imeFoldera1 = (JSONArray) object.get("imeFoldera");
                     brFajlova = (JSONArray) object.get("brFajlova");
 
-
                 } catch (ParseException | FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
                 return "connect";
-
             }
-
-
-
         }
     }
 
@@ -156,7 +145,6 @@ public class LokalniExporter extends MyExporter{
                 }
 
             }
-
             if(unetaVelicina >= velicinaSkladista){
                 if(flag2){
                     Files.copy(sourceFile.toPath(),destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -167,15 +155,9 @@ public class LokalniExporter extends MyExporter{
             }else{
                 System.out.println("Nema mesta na skladistu!");
             }
-
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -228,9 +210,6 @@ public class LokalniExporter extends MyExporter{
                 }else{
                     System.out.println("Nema mesta na skladistu!");
                 }
-
-
-
             }catch (Exception e) {
                 System.out.println("Pogresna putanja!");
             }
@@ -238,7 +217,6 @@ public class LokalniExporter extends MyExporter{
         }else{
             System.out.println("Folder vec postoji");
         }
-
     }
 
 
@@ -293,6 +271,7 @@ public class LokalniExporter extends MyExporter{
                                 if(file.createNewFile()){
 
                                     System.out.println("Uspesno kreiran file");
+                                    System.out.println(FilenameUtils.getExtension(file.getName()));
                                 }
                             }else{
                                 System.out.println("Prekoracili ste broj fajlova");
@@ -566,6 +545,63 @@ public class LokalniExporter extends MyExporter{
     }
 
     @Override
+    public void sort(String path, String vrsta, String redosled) throws IOException {
+        File folder = new File(path);
+        String p = path;
+        File[] files = folder.listFiles();
+        List<String> files1 = new ArrayList<>();
+
+        for(File f: files) {
+            files1.add(f.getName());
+        }
+
+        if(vrsta.equals("ime")){
+            if(redosled.equals("true")){
+                 Collections.sort(files1);
+            }else{
+                if(redosled.equals("false")) {
+                    Collections.sort(files1, Collections.reverseOrder());
+                }
+            }
+            System.out.println(files1);
+        }
+        List<FileTime> vremenaK = new ArrayList<>();
+        for(File f:files) {
+            BasicFileAttributes attr = Files.readAttributes(Path.of(f.getPath()), BasicFileAttributes.class);
+            FileTime a = attr.creationTime();
+            vremenaK.add(a);
+        }
+        if(vrsta.equals("datumK")){
+            if(redosled.equals("true")){
+
+            Collections.sort(vremenaK);
+            }else{
+                if(redosled.equals("false")){
+                    Collections.sort(vremenaK,Collections.reverseOrder());
+                }
+            }
+            System.out.println(vremenaK);
+        }
+        List<FileTime> vremenaM = new ArrayList<>();
+        for(File f:files) {
+            BasicFileAttributes attr = Files.readAttributes(Path.of(f.getPath()), BasicFileAttributes.class);
+            FileTime a = attr.lastModifiedTime();
+            vremenaM.add(a);
+        }
+
+        if(vrsta.equals("datumM")){
+            if(redosled.equals("true")){
+
+                Collections.sort(vremenaM);
+            }else{
+                if(redosled.equals("false")){
+                    Collections.sort(vremenaK,Collections.reverseOrder());
+                }
+            }
+            System.out.println(vremenaM);
+        }
+    }
+    @Override
     public void moveFile(String sourceFilePath , String destinationFilePath) {
 
         File sourceFile = new File(sourceFilePath);
@@ -636,7 +672,7 @@ public class LokalniExporter extends MyExporter{
     public boolean downloadFile(String sourceFilePath) {
 
         File sourceFile = new File(sourceFilePath);
-        File destinationFile = new File("C:\\Users\\Nikola\\Downloads");
+        File destinationFile = new File("C:\\Users\\Micole\\Downloads");
         try {
             Files.copy(sourceFile.toPath(),destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             return true;
@@ -751,6 +787,27 @@ public class LokalniExporter extends MyExporter{
 
     }
 
+    @Override
+    public void returnFilesWithExtension(String path, String extension) {
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+
+        for(File file:files){
+            if(file.isFile() && FilenameUtils.getExtension(file.getName()).equals(extension)){
+                System.out.println("File -> " + file.getName());
+            }else{
+                if(file.isDirectory()){
+                    File[] files1 = file.listFiles();
+                    for(File file1: files1){
+                        if(file1.isFile() && FilenameUtils.getExtension(file1.getName()).equals(extension)){
+                            System.out.println("File -> " + file1.getName());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void readKonfiguracioni(String path) {
 
         File file = new File(pathKonfiguracioni);
@@ -779,6 +836,5 @@ public class LokalniExporter extends MyExporter{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

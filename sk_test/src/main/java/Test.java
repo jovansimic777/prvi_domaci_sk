@@ -68,7 +68,7 @@ public class Test {
                     System.out.println("(3) Create file");
                     System.out.println("(4) Delete folder");
                     System.out.println("(5) Delete file");
-                    System.out.println("(6) Read");
+                    System.out.println("(6) ReadAll");
                     System.out.println("(7) Move file");
                     System.out.println("(8) Download file");
                     System.out.println("(9) Last modified");
@@ -76,12 +76,15 @@ public class Test {
                     System.out.println("(11) Set restricted extensions");
                     System.out.println("(12) Set folder restriction");
                     System.out.println("(13) Rename");
-                    System.out.println("(14) ReadAll");
+                    System.out.println("(14) Read");
                     System.out.println("(15) File contains String");
                     System.out.println("(16) Which folder contains file");
                     System.out.println("(17) Does folder contain file");
+                    System.out.println("(18) Get file with extension");
+                    System.out.println("(19) Sort");
 
-                    System.out.println("Izaberite opciju:");
+
+                System.out.println("Izaberite opciju:");
                     Scanner scanner100 = new Scanner(System.in);
                     int br = scanner100.nextInt();
 
@@ -212,7 +215,7 @@ public class Test {
                         System.out.println("Unesite putanju foldera:");
                         Scanner scanneri = new Scanner(System.in);
                         String put123 = scanneri.nextLine();
-                        System.out.println("Unesite ime");
+                        System.out.println("Unesite imena");
                         String imena = scanneri.nextLine();
                         String[] imena2 = imena.split(",");
                         List<String> finalnaImena = new ArrayList<String>();
@@ -220,6 +223,24 @@ public class Test {
                             finalnaImena.add(imena2[i]);
                         }
                         myExporter.doesFolderContainFile(put123,finalnaImena);
+                        break;
+                    case 18:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scanner43 = new Scanner(System.in);
+                        String put132 = scanner43.nextLine();
+                        System.out.println("Unesite ekstenziju");
+                        String ime132 = scanner43.nextLine();
+                        myExporter.returnFilesWithExtension(put132, ime132);
+                        break;
+                    case 19:
+                        System.out.println("Unesite putanju foldera:");
+                        Scanner scanner143 = new Scanner(System.in);
+                        String put0 = scanner143.nextLine();
+                        System.out.println("Unesite vrstu sort");
+                        String ime0 = scanner143.nextLine();
+                        System.out.println("Unesite redosled sort");
+                        String ime01 = scanner143.nextLine();
+                        myExporter.sort(put0, ime0,ime01);
                         break;
                     default:
                         System.out.println("Lose ste uneli!");

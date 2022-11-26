@@ -202,7 +202,6 @@ public class DriveImplementacija extends MyExporter{
 
         File body = new File();
         body.setName(lokalDestinacija.get(lokalDestinacija.size()-1));
-        //body.setMimeType("application/vnd.google-apps.file");
         body.setParents(Collections.singletonList(roditelj.getId()));
 
         FileContent mediaContent = null;
@@ -403,6 +402,10 @@ public class DriveImplementacija extends MyExporter{
 
     }
 
+    @Override
+    public void sort(String path, String vrsta, String redosled) throws IOException {
+
+    }
 
     @Override
     public void moveFile(String fajl, String folder) throws IOException {
@@ -537,6 +540,11 @@ public class DriveImplementacija extends MyExporter{
 
     @Override
     public void setFolderRestriction(String folderName, Integer broj) {
+
+    }
+
+    @Override
+    public void returnFilesWithExtension(String path, String extension) {
 
     }
 }
